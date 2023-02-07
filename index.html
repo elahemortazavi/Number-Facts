@@ -65,7 +65,7 @@
               .then(data => {
                 if (number != "") {
                     fact.style.display = "block";
-                    factText.innerText = this.responseText;
+                    factText.innerText = data;
                 }
               })
               .catch(err => console.log(err)); 
