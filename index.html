@@ -22,7 +22,7 @@
                     <input type="number" class="form-control form-control-lg" id="number-input" placeholder="Enter any number...">
                     <div id="fact" class="card-body">
                         <h4 class="card-title">Number Fact</h4>
-                        <p id="facttext" class="card-text"></p>
+                        <p id="factText" class="card-text"></p>
                     </div>
                 </div>
             </div>
@@ -31,25 +31,48 @@
     
     <script>
         let fact = document.querySelector("#fact");
-        let facttext = document.querySelector("#facttext");
+        let factText = document.querySelector("#factText");
 
         let numberInput = document.querySelector("#number-input");
-        numberInput.addEventListener("input", getFactAjax);
+        
+        
+        //AJAX SOLUTION:
 
-        function getFactAjax() {
+        // numberInput.addEventListener("input", getFactAjax);
+
+        // function getFactAjax() {
+        //     let number = numberInput.value;
+        //     let xhr = new XMLHttpRequest();
+        //     xhr.open("GET", "http://numbersapi.com/"+number);
+
+        //     xhr.onload = function() {
+        //         if (this.status == 200 && number != ""){
+        //             fact.style.display = "block";
+        //             factText.innerText = this.responseText;
+
+        //         }
+        //     }
+        //     xhr.send();
+        // }
+
+        // FETCH SOLUTION:
+        numberInput.addEventListener("input", getFactFetch);
+          function getFactFetch() {
             let number = numberInput.value;
-            let xhr = new XMLHttpRequest();
-            xhr.open("GET", "http://nummbersapi.com"+number);
 
-            xhr.onload = function() {
-                if (this.status == 200 && number != ""){
+            fetch ("http://numbersapi.com/"+number)
+              .then(response => response.text())
+              .then(data => {
+                if (number != "") {
                     fact.style.display = "block";
                     factText.innerText = this.responseText;
-
                 }
+              })
+              .catch(err => console.log(err)); 
+          
             }
-            xhr.send();
-        }
+
+          
     </script>
 </body>
 </html>
